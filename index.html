@@ -10,7 +10,7 @@
   --bg:#080a0f; --surface:#0d1117; --surface2:#1a212b;
   --border:rgba(255,255,255,0.07); --border-hover:rgba(0,200,255,0.3);
   --accent:#00c8ff; --accent-dim:rgba(0,200,255,0.1);
-  --text:#f0f3f6; --text-soft:#c9d1d9; --text-muted:#9aa5b1; --text-dim:#4a5568;
+  --text:#ffffff; --text-soft:#e8edf2; --text-muted:#9aa5b1; --text-dim:#4a5568;
   --cmd:#00c8ff;
   --green:#3fb950; --yellow:#d29922; --orange:#f0883e; --red:#f85149; --purple:#bc8cff;
 }
@@ -68,7 +68,7 @@ main { padding:24px 28px 60px; }
 .cmd-row { cursor:pointer; } .cmd-row:hover { background:var(--surface2); } .cmd-row.copied { background:var(--accent-dim); } .cmd-row.copied .cmd-syntax { color:#fff; }
 .cmd-row td { padding:9px 14px; vertical-align:middle; }
 .cmd-syntax { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cmd); white-space:nowrap; width:1%; }
-.cmd-desc { font-size:13px; color:var(--text-soft); line-height:1.5; }
+.cmd-desc { font-size:13px; color:var(--text); line-height:1.5; }
 .cmd-level { text-align:right; width:1%; white-space:nowrap; }
 
 .badge { font-family:'JetBrains Mono',monospace; font-size:10px; padding:2px 7px; border-radius:4px; border:1px solid; font-weight:500; }
@@ -87,9 +87,9 @@ main { padding:24px 28px 60px; }
 <nav>
   <div class="nav-logo">⚔ Metin2<span>DB</span></div>
   <div class="nav-sep"></div>
-  <a href="index.html" class="nav-link active">GM Comenzi</a>
-  <a href="items.html" class="nav-link">🎒 Iteme</a>
-  <a href="mobs.html" class="nav-link">👾 Mobi</a>
+  <a href="index.html" class="nav-link active" id="nav-cmd">GM Comenzi</a>
+  <a href="items.html" class="nav-link" id="nav-items">🎒 Iteme</a>
+  <a href="mobs.html" class="nav-link" id="nav-mobs">👾 Mobi</a>
   <div class="nav-spacer"></div>
   <div class="lang-toggle">
     <button class="lang-btn active" onclick="setLang('ro')" id="btn-ro">RO</button>
@@ -257,6 +257,9 @@ let currentLang='ro';
 
 function setLang(lang){
   currentLang=lang;
+  document.getElementById('nav-cmd').textContent=lang==='ro'?'GM Comenzi':'GM Commands';
+  document.getElementById('nav-items').textContent=lang==='ro'?'🎒 Iteme':'🎒 Items';
+  document.getElementById('nav-mobs').textContent=lang==='ro'?'👾 Mobi':'👾 Mobs';
   document.getElementById('btn-ro').classList.toggle('active',lang==='ro');
   document.getElementById('btn-en').classList.toggle('active',lang==='en');
   document.getElementById('search').placeholder=LANG[lang].search;
