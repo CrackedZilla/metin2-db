@@ -4,139 +4,84 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GM Commands — Metin2</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #070809;
-  --surface: #0e1014;
-  --surface2: #141619;
-  --border: rgba(255,255,255,0.06);
-  --border-hover: rgba(255,149,0,0.25);
-  --accent: #ff9500;
-  --text: #e8eaed;
-  --text-muted: #6b7280;
-  --text-dim: #374151;
-  --cmd: #60a5fa;
-  --green: #34d399;
-  --yellow: #fbbf24;
-  --orange: #f97316;
-  --red: #f87171;
-  --purple: #a78bfa;
-  --glow: rgba(255,149,0,0.1);
+  --bg:#080a0f; --surface:#0d1117; --surface2:#161b22;
+  --border:rgba(255,255,255,0.07); --border-hover:rgba(0,200,255,0.3);
+  --accent:#00c8ff; --accent-dim:rgba(0,200,255,0.1);
+  --text:#e6edf3; --text-muted:#7d8590; --text-dim:#30363d;
+  --cmd:#00c8ff;
+  --green:#3fb950; --yellow:#d29922; --orange:#f0883e; --red:#f85149; --purple:#bc8cff;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg); color: var(--text);
-  font-family: 'Outfit', sans-serif; font-size: 15px; min-height: 100vh;
-  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255,149,0,0.07), transparent);
-}
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-size:14px; min-height:100vh; background-image:radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,200,255,0.05), transparent); }
 
-/* NAV */
-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(7,8,9,0.88); backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 32px; display: flex; align-items: center; height: 60px; gap: 8px;
-}
-.nav-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; color: #fff; margin-right: 16px; display: flex; align-items: center; gap: 8px; }
-.nav-logo span { color: var(--accent); }
-.nav-sep { width: 1px; height: 20px; background: var(--border); margin: 0 8px; }
-.nav-link { padding: 6px 14px; border-radius: 8px; color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.2s; border: 1px solid transparent; }
-.nav-link:hover { color: var(--text); background: var(--surface2); }
-.nav-link.active { color: var(--accent); background: rgba(255,149,0,0.1); border-color: rgba(255,149,0,0.2); }
-.nav-spacer { flex: 1; }
-.lang-toggle { display: flex; gap: 2px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 3px; }
-.lang-btn { padding: 5px 14px; border: none; border-radius: 6px; background: transparent; color: var(--text-muted); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; transition: all 0.2s; }
-.lang-btn.active { background: var(--accent); color: #000; }
+nav { position:sticky; top:0; z-index:100; background:rgba(8,10,15,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); padding:0 24px; display:flex; align-items:center; height:56px; gap:6px; }
+.nav-logo { font-size:16px; font-weight:700; color:#fff; margin-right:12px; display:flex; align-items:center; gap:6px; letter-spacing:-0.3px; }
+.nav-logo span { color:var(--accent); }
+.nav-sep { width:1px; height:16px; background:var(--border); margin:0 6px; }
+.nav-link { padding:5px 12px; border-radius:6px; color:var(--text-muted); text-decoration:none; font-size:13px; font-weight:500; transition:all 0.15s; border:1px solid transparent; }
+.nav-link:hover { color:var(--text); background:var(--surface2); }
+.nav-link.active { color:var(--accent); background:var(--accent-dim); border-color:rgba(0,200,255,0.2); }
+.nav-spacer { flex:1; }
+.lang-toggle { display:flex; gap:2px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:2px; }
+.lang-btn { padding:4px 12px; border:none; border-radius:4px; background:transparent; color:var(--text-muted); cursor:pointer; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.5px; transition:all 0.2s; }
+.lang-btn.active { background:var(--accent); color:#000; }
 
-/* SEARCH */
-.search-section {
-  padding: 24px 32px 20px; border-bottom: 1px solid var(--border);
-  background: var(--surface); display: flex; align-items: center; gap: 16px;
-}
-.search-wrap { position: relative; flex: 1; max-width: 480px; }
-.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
-.search-input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 11px 16px 11px 42px; color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; outline: none; transition: all 0.2s; }
-.search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,149,0,0.08); }
-.search-input::placeholder { color: var(--text-dim); }
-.count-badge { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); background: var(--surface2); border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; white-space: nowrap; }
-.count-badge b { color: var(--accent); }
+.search-section { padding:20px 24px 16px; border-bottom:1px solid var(--border); background:var(--surface); display:flex; align-items:center; gap:12px; }
+.search-wrap { position:relative; flex:1; max-width:440px; }
+.search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text-muted); pointer-events:none; font-size:13px; }
+.search-input { width:100%; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:9px 14px 9px 36px; color:var(--text); font-family:'JetBrains Mono',monospace; font-size:12px; outline:none; transition:all 0.2s; }
+.search-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,200,255,0.08); }
+.search-input::placeholder { color:var(--text-dim); }
+.count-badge { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-muted); background:var(--surface2); border:1px solid var(--border); padding:5px 10px; border-radius:6px; }
+.count-badge b { color:var(--accent); }
 
-/* LAYOUT */
-.layout { display: grid; grid-template-columns: 200px 1fr; min-height: calc(100vh - 120px); }
+.layout { display:grid; grid-template-columns:190px 1fr; min-height:calc(100vh - 100px); }
 
-/* SIDEBAR */
-aside {
-  background: var(--surface); border-right: 1px solid var(--border);
-  padding: 20px 0; position: sticky; top: 60px;
-  height: calc(100vh - 60px); overflow-y: auto;
-}
-aside::-webkit-scrollbar { width: 3px; }
-aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-.sidebar-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); padding: 0 16px 8px; margin-top: 16px; }
-.sidebar-link {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 16px; color: var(--text-muted);
-  font-size: 13px; font-weight: 500; cursor: pointer;
-  transition: all 0.15s; border-left: 2px solid transparent;
-}
-.sidebar-link:hover { color: var(--text); background: var(--surface2); }
-.sidebar-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(255,149,0,0.05); }
-.sidebar-count { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); }
+aside { background:var(--surface); border-right:1px solid var(--border); padding:16px 0; position:sticky; top:56px; height:calc(100vh - 56px); overflow-y:auto; }
+aside::-webkit-scrollbar { width:3px; }
+aside::-webkit-scrollbar-thumb { background:var(--border); }
+.sidebar-label { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); padding:0 14px 6px; margin-top:12px; font-weight:600; }
+.sidebar-link { display:flex; align-items:center; gap:7px; padding:7px 14px; color:var(--text-muted); font-size:12px; font-weight:500; cursor:pointer; transition:all 0.12s; border-left:2px solid transparent; }
+.sidebar-link:hover { color:var(--text); background:rgba(255,255,255,0.03); }
+.sidebar-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-dim); }
+.sidebar-count { margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); }
 
-/* MAIN */
-main { padding: 28px 32px 60px; overflow-y: auto; }
+main { padding:24px 28px 60px; }
 
-/* LEGEND */
-.legend {
-  display: flex; gap: 8px; flex-wrap: wrap;
-  margin-bottom: 28px; padding: 14px 18px;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 10px;
-}
-.legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-muted); }
+.legend { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; padding:12px 16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; }
+.legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-muted); }
 
-/* SECTIONS */
-.section { margin-bottom: 40px; animation: fadeUp 0.3s ease; }
-@keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+.section { margin-bottom:36px; }
+.section-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+.section-icon { font-size:18px; }
+.section-title { font-size:15px; font-weight:600; color:var(--text); }
+.section-count { margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); background:var(--surface2); padding:2px 7px; border-radius:4px; border:1px solid var(--border); }
 
-.section-header {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 16px; padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-}
-.section-icon { font-size: 20px; }
-.section-title { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; color: #fff; }
-.section-count { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); background: var(--surface2); padding: 3px 8px; border-radius: 5px; border: 1px solid var(--border); }
+.cmd-table-wrap { background:var(--surface); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+.cmd-table { width:100%; border-collapse:collapse; }
+.cmd-row { border-bottom:1px solid var(--border); transition:background 0.12s; }
+.cmd-row:last-child { border-bottom:none; }
+.cmd-row:hover { background:var(--surface2); }
+.cmd-row td { padding:9px 14px; vertical-align:middle; }
+.cmd-syntax { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cmd); white-space:nowrap; width:1%; }
+.cmd-desc { font-size:13px; color:var(--text-muted); line-height:1.5; }
+.cmd-level { text-align:right; width:1%; white-space:nowrap; }
 
-/* TABLE */
-.cmd-table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-.cmd-table { width: 100%; border-collapse: collapse; }
-.cmd-row { border-bottom: 1px solid var(--border); transition: background 0.15s; }
-.cmd-row:last-child { border-bottom: none; }
-.cmd-row:hover { background: var(--surface2); }
-.cmd-row td { padding: 10px 16px; vertical-align: middle; }
-.cmd-syntax { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--cmd); white-space: nowrap; width: 1%; }
-.cmd-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-.cmd-level { text-align: right; width: 1%; white-space: nowrap; }
+.badge { font-family:'JetBrains Mono',monospace; font-size:10px; padding:2px 7px; border-radius:4px; border:1px solid; font-weight:500; }
+.badge-LOW_WIZARD { color:var(--green); border-color:rgba(63,185,80,0.3); background:rgba(63,185,80,0.08); }
+.badge-WIZARD { color:var(--yellow); border-color:rgba(210,153,34,0.3); background:rgba(210,153,34,0.08); }
+.badge-HIGH_WIZARD { color:var(--orange); border-color:rgba(240,136,62,0.3); background:rgba(240,136,62,0.08); }
+.badge-GOD { color:var(--red); border-color:rgba(248,81,73,0.3); background:rgba(248,81,73,0.08); }
+.badge-IMPLEMENTOR { color:var(--purple); border-color:rgba(188,140,255,0.3); background:rgba(188,140,255,0.08); }
 
-.badge {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  padding: 3px 8px; border-radius: 5px; border: 1px solid;
-  letter-spacing: 0.5px; font-weight: 500;
-}
-.badge-LOW_WIZARD { color: var(--green); border-color: rgba(52,211,153,0.25); background: rgba(52,211,153,0.07); }
-.badge-WIZARD { color: var(--yellow); border-color: rgba(251,191,36,0.25); background: rgba(251,191,36,0.07); }
-.badge-HIGH_WIZARD { color: var(--orange); border-color: rgba(249,115,22,0.25); background: rgba(249,115,22,0.07); }
-.badge-GOD { color: var(--red); border-color: rgba(248,113,113,0.25); background: rgba(248,113,113,0.07); }
-.badge-IMPLEMENTOR { color: var(--purple); border-color: rgba(167,139,250,0.25); background: rgba(167,139,250,0.07); }
-
-.no-results { text-align: center; padding: 80px; color: var(--text-muted); }
+.no-results { text-align:center; padding:60px; color:var(--text-muted); font-size:14px; }
 </style>
 </head>
 <body>
-
 <nav>
   <div class="nav-logo">⚔ Metin2<span>DB</span></div>
   <div class="nav-sep"></div>
@@ -149,7 +94,6 @@ main { padding: 28px 32px 60px; overflow-y: auto; }
     <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
   </div>
 </nav>
-
 <div class="search-section">
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
@@ -157,210 +101,192 @@ main { padding: 28px 32px 60px; overflow-y: auto; }
   </div>
   <div class="count-badge">Afișate: <b id="shown">0</b></div>
 </div>
-
 <div class="layout">
   <aside id="sidebar"></aside>
   <main id="main-content">
     <div class="legend">
-      <div class="legend-item"><span class="badge badge-LOW_WIZARD">Low Wizard</span> <span id="leg1">Acces de bază</span></div>
+      <div class="legend-item"><span class="badge badge-LOW_WIZARD">Low Wizard</span> <span id="leg1">Acces de baza</span></div>
       <div class="legend-item"><span class="badge badge-WIZARD">Wizard</span> <span id="leg2">GM mediu</span></div>
       <div class="legend-item"><span class="badge badge-HIGH_WIZARD">High Wizard</span> <span id="leg3">GM avansat</span></div>
       <div class="legend-item"><span class="badge badge-GOD">God</span> <span id="leg4">Admin</span></div>
       <div class="legend-item"><span class="badge badge-IMPLEMENTOR">Implementor</span> <span id="leg5">Super Admin</span></div>
     </div>
     <div id="sections"></div>
-    <div id="no-results" class="no-results hidden"></div>
+    <div id="no-results" class="no-results" style="display:none"></div>
   </main>
 </div>
 
 <script>
 const LANG = {
-  ro: {
-    search: 'Caută o comandă...',
-    noResults: 'Nicio comandă găsită.',
-    categories: 'Categorii',
-    leg: ['Acces de bază','GM mediu','GM avansat','Admin','Super Admin'],
-  },
-  en: {
-    search: 'Search a command...',
-    noResults: 'No commands found.',
-    categories: 'Categories',
-    leg: ['Basic access','Mid GM','Advanced GM','Admin','Super Admin'],
-  }
+  ro: { search:'Cauta o comanda...', noResults:'Nicio comanda gasita.', cats:'Categorii', leg:['Acces de baza','GM mediu','GM avansat','Admin','Super Admin'] },
+  en: { search:'Search a command...', noResults:'No commands found.', cats:'Categories', leg:['Basic access','Mid GM','Advanced GM','Admin','Super Admin'] }
 };
 
-const data = {
-  categories: [
-    { id:"teleport", icon:"📡", ro:"Teleportare & Navigare", en:"Teleport & Navigation", commands:[
-      {syntax:"/warp <nume>", ro:"Teleportează-te la un jucător", en:"Teleport to a player", level:"LOW_WIZARD"},
-      {syntax:"/warp <x> <y>", ro:"Teleportează-te la coordonate", en:"Teleport to coordinates", level:"LOW_WIZARD"},
-      {syntax:"/goto <x> <y>", ro:"Mergi la coordonate pe harta curentă", en:"Go to coordinates on current map", level:"LOW_WIZARD"},
-      {syntax:"/goto <locatie>", ro:"Mergi la o locație denumită", en:"Go to a named location", level:"LOW_WIZARD"},
-      {syntax:"/transfer <nume>", ro:"Aduce un jucător la tine", en:"Bring a player to you", level:"LOW_WIZARD"},
-      {syntax:"/transfer_force <nume>", ro:"Aduce un jucător la tine (forțat)", en:"Force bring a player to you", level:"LOW_WIZARD"},
-      {syntax:"/rewarp", ro:"Reteleportează-te la ultima poziție", en:"Re-teleport to last position", level:"HIGH_WIZARD"},
-    ]},
-    { id:"players", icon:"👤", ro:"Jucători", en:"Players", commands:[
-      {syntax:"/dc <nume>", ro:"Deconectează un jucător", en:"Disconnect a player", level:"LOW_WIZARD"},
-      {syntax:"/kill <nume>", ro:"Omoară un jucător", en:"Kill a player", level:"HIGH_WIZARD"},
-      {syntax:"/kill_all", ro:"Omoară toți jucătorii din jur", en:"Kill all nearby players", level:"HIGH_WIZARD"},
-      {syntax:"/advance <nume> <nivel>", ro:"Setează nivelul altui jucător", en:"Set another player's level", level:"GOD"},
-      {syntax:"/level <nivel>", ro:"Setează nivelul tău (resetează skill-urile)", en:"Set your level (resets skills)", level:"LOW_WIZARD"},
-      {syntax:"/state [<nume>]", ro:"Afișează starea unui jucător", en:"Show player state", level:"LOW_WIZARD"},
-      {syntax:"/view_equip <nume>", ro:"Afișează echipamentul unui jucător", en:"Show a player's equipment", level:"HIGH_WIZARD"},
-      {syntax:"/user", ro:"Listează toți jucătorii conectați", en:"List all connected players", level:"HIGH_WIZARD"},
-      {syntax:"/who", ro:"Număr total jucători pe imperii", en:"Total player count by empire", level:"IMPLEMENTOR"},
-      {syntax:"/online", ro:"Număr jucători conectați", en:"Connected player count", level:"LOW_WIZARD"},
-      {syntax:"/reset", ro:"Reface HP și SP ale tale la maxim", en:"Restore your HP and SP to max", level:"HIGH_WIZARD"},
-      {syntax:"/greset <nume>", ro:"Reface HP și SP ale unui jucător", en:"Restore a player's HP and SP", level:"HIGH_WIZARD"},
-      {syntax:"/stat_reset", ro:"Resetează punctele de stat", en:"Reset stat points", level:"LOW_WIZARD"},
-      {syntax:"/block_chat <nume> <sec>", ro:"Blochează chat-ul unui jucător", en:"Block a player's chat", level:"HIGH_WIZARD"},
-      {syntax:"/block_chat_list", ro:"Lista jucătorilor cu chat blocat", en:"List of blocked chat players", level:"LOW_WIZARD"},
-      {syntax:"/forgetme", ro:"Elimină GM-ul din memoria monștrilor", en:"Remove GM from monster memory", level:"LOW_WIZARD"},
-    ]},
-    { id:"items", icon:"🎒", ro:"Iteme", en:"Items", commands:[
-      {syntax:"/item <vnum> [<cant>]", ro:"Spawneaza un item pe tine", en:"Spawn an item on yourself", level:"GOD"},
-      {syntax:"/ipurge", ro:"Șterge toate itemele din inventar", en:"Delete all items from inventory", level:"HIGH_WIZARD"},
-      {syntax:"/drop_item <slot>", ro:"Aruncă itemul dintr-un slot", en:"Drop item from slot", level:"HIGH_WIZARD"},
-      {syntax:"/item_full_set", ro:"Dă-ți un set complet de iteme", en:"Give yourself a full item set", level:"LOW_WIZARD"},
-      {syntax:"/attr_full_set", ro:"Setează atributele itemelor la maxim", en:"Set item attributes to max", level:"LOW_WIZARD"},
-      {syntax:"/full_set", ro:"Echipează-te cu un set complet", en:"Equip a full set", level:"LOW_WIZARD"},
-      {syntax:"/change_attr <slot>", ro:"Schimbă atributele unui item", en:"Change item attributes", level:"IMPLEMENTOR"},
-      {syntax:"/add_attr <slot>", ro:"Adaugă un atribut unui item", en:"Add attribute to item", level:"IMPLEMENTOR"},
-      {syntax:"/add_socket <slot>", ro:"Adaugă un socket unui item", en:"Add socket to item", level:"IMPLEMENTOR"},
-      {syntax:"/set_socket <slot> <idx> <val>", ro:"Setează valoarea unui socket", en:"Set socket value", level:"LOW_WIZARD"},
-      {syntax:"/get_socket <slot>", ro:"Afișează socketurile unui item", en:"Show item sockets", level:"LOW_WIZARD"},
-      {syntax:"/use_item <slot>", ro:"Folosește un item din inventar", en:"Use item from inventory", level:"LOW_WIZARD"},
-    ]},
-    { id:"mobs", icon:"👾", ro:"Mobi", en:"Mobs", commands:[
-      {syntax:"/mob <vnum> [<cant>]", ro:"Spawneaza un mob la tine", en:"Spawn a mob at your position", level:"HIGH_WIZARD"},
-      {syntax:"/mob_ld <vnum> <x> <y>", ro:"Spawneaza un mob la coordonate", en:"Spawn mob at coordinates", level:"HIGH_WIZARD"},
-      {syntax:"/ma <vnum>", ro:"Spawneaza un mob agresiv", en:"Spawn aggressive mob", level:"HIGH_WIZARD"},
-      {syntax:"/mc <vnum>", ro:"Spawneaza un mob laș", en:"Spawn cowardly mob", level:"HIGH_WIZARD"},
-      {syntax:"/mm <vnum>", ro:"Spawneaza un mob pe toată harta", en:"Spawn mob across entire map", level:"HIGH_WIZARD"},
-      {syntax:"/purge [all]", ro:"Șterge mobii din jur", en:"Remove nearby mobs", level:"WIZARD"},
-      {syntax:"/aggregate", ro:"Atrage toți mobii din zonă", en:"Attract all nearby mobs", level:"LOW_WIZARD"},
-      {syntax:"/pull_monster", ro:"Trage un mob specific la tine", en:"Pull a specific mob to you", level:"LOW_WIZARD"},
-      {syntax:"/get_mob_count", ro:"Numărul de mobi din zonă", en:"Mob count in area", level:"LOW_WIZARD"},
-      {syntax:"/respawn", ro:"Re-spawneaza mobi în zonă", en:"Re-spawn mobs in area", level:"WIZARD"},
-    ]},
-    { id:"skills", icon:"⚡", ro:"Skill-uri", en:"Skills", commands:[
-      {syntax:"/setskill <vnum> <nivel>", ro:"Setează nivelul unui skill al tău", en:"Set your skill level", level:"LOW_WIZARD"},
-      {syntax:"/setskillother <nume> <vnum> <niv>", ro:"Setează skill-ul altui jucător", en:"Set another player's skill", level:"HIGH_WIZARD"},
-      {syntax:"/all_skill_master", ro:"Toate skill-urile la master", en:"All skills to master", level:"LOW_WIZARD"},
-      {syntax:"/reset_subskill", ro:"Resetează sub-skill-urile", en:"Reset sub-skills", level:"HIGH_WIZARD"},
-      {syntax:"/cooltime", ro:"Activează/dezactivează cooldown", en:"Toggle skill cooldowns", level:"HIGH_WIZARD"},
-      {syntax:"/setjob <grup>", ro:"Schimbă grupul de skill-uri", en:"Change skill group", level:"IMPLEMENTOR"},
-      {syntax:"/setskillpoint <val>", ro:"Setează punctele de skill", en:"Set skill points", level:"IMPLEMENTOR"},
-    ]},
-    { id:"affects", icon:"✨", ro:"Affect-uri", en:"Affects", commands:[
-      {syntax:"/affect_add <type> <apply> <val> <flag> <dur> <ovr>", ro:"Adaugă un buff/debuff", en:"Add a buff/debuff", level:"LOW_WIZARD"},
-      {syntax:"/affect_remove <tip> <punct>", ro:"Elimină un affect specific", en:"Remove a specific affect", level:"LOW_WIZARD"},
-      {syntax:"/stun <nume>", ro:"Aplică stun 30 secunde", en:"Apply stun for 30 seconds", level:"LOW_WIZARD"},
-      {syntax:"/slow <nume>", ro:"Aplică slow (-30 viteză, 30 sec)", en:"Apply slow (-30 speed, 30 sec)", level:"LOW_WIZARD"},
-      {syntax:"/poison <nume>", ro:"Aplică efect de otravă", en:"Apply poison effect", level:"IMPLEMENTOR"},
-      {syntax:"/bleeding <nume>", ro:"Aplică efect de bleeding", en:"Apply bleeding effect", level:"IMPLEMENTOR"},
-      {syntax:"/fire <nume>", ro:"Aplică efect de foc", en:"Apply fire effect", level:"IMPLEMENTOR"},
-      {syntax:"/weaken <nume>", ro:"Slăbește un jucător", en:"Weaken a player", level:"GOD"},
-    ]},
-    { id:"notices", icon:"📢", ro:"Anunțuri", en:"Notices", commands:[
-      {syntax:"/notice <mesaj>", ro:"Anunț pe tot serverul", en:"Server-wide notice", level:"HIGH_WIZARD"},
-      {syntax:"/notice_map <mesaj>", ro:"Anunț pe harta curentă", en:"Notice on current map", level:"LOW_WIZARD"},
-      {syntax:"/big_notice <mesaj>", ro:"Anunț mare pe tot serverul", en:"Big notice server-wide", level:"HIGH_WIZARD"},
-      {syntax:"/whisper_notice <mesaj>", ro:"Anunț prin whisper la toți", en:"Whisper notice to all", level:"GOD"},
-    ]},
-    { id:"quest", icon:"📜", ro:"Quest & Flags", en:"Quest & Flags", commands:[
-      {syntax:"/getqf [<nume>]", ro:"Afișează quest flag-urile unui jucător", en:"Show player quest flags", level:"LOW_WIZARD"},
-      {syntax:"/setqf <flag> <val> [<nume>]", ro:"Setează un quest flag", en:"Set a quest flag", level:"LOW_WIZARD"},
-      {syntax:"/delqf <flag> [<nume>]", ro:"Șterge un quest flag", en:"Delete a quest flag", level:"LOW_WIZARD"},
-      {syntax:"/clear_quest <quest>", ro:"Resetează un quest", en:"Reset a quest", level:"HIGH_WIZARD"},
-      {syntax:"/eventflag <flag> <val>", ro:"Setează event flag global", en:"Set global event flag", level:"HIGH_WIZARD"},
-      {syntax:"/geteventflag <flag>", ro:"Afișează valoarea unui event flag", en:"Show event flag value", level:"LOW_WIZARD"},
-    ]},
-    { id:"guild", icon:"🏰", ro:"Gildă & Imperiu", en:"Guild & Empire", commands:[
-      {syntax:"/makeguild <nume>", ro:"Creează o gildă", en:"Create a guild", level:"HIGH_WIZARD"},
-      {syntax:"/deleteguild", ro:"Dizolvă gilda ta", en:"Disband your guild", level:"HIGH_WIZARD"},
-      {syntax:"/guild_advance <id> <nivel>", ro:"Setează nivelul unei gilde", en:"Set guild level", level:"IMPLEMENTOR"},
-      {syntax:"/gwlist", ro:"Listează războaiele de gildă active", en:"List active guild wars", level:"LOW_WIZARD"},
-      {syntax:"/gwstop <id1> <id2>", ro:"Oprește un război de gildă", en:"Stop a guild war", level:"LOW_WIZARD"},
-      {syntax:"/gwcancel <id1> <id2>", ro:"Anulează un război de gildă", en:"Cancel a guild war", level:"LOW_WIZARD"},
-      {syntax:"/priv_guild <id> <tip> <val> <dur>", ro:"Bonus pentru o gildă", en:"Set guild bonus", level:"HIGH_WIZARD"},
-      {syntax:"/priv_empire <imp> <tip> <val> <dur>", ro:"Bonus pentru un imperiu (1=Shinsoo, 2=Chunjo, 3=Jinno)", en:"Set empire bonus (1=Shinsoo, 2=Chunjo, 3=Jinno)", level:"HIGH_WIZARD"},
-    ]},
-    { id:"duel", icon:"⚔️", ro:"Duel & Monarh", en:"Duel & Monarch", commands:[
-      {syntax:"/duel <j1> <j2> <seturi> <min>", ro:"Inițiază un duel", en:"Start a duel", level:"LOW_WIZARD"},
-      {syntax:"/end_duel <j1> <j2>", ro:"Termină un duel", en:"End a duel", level:"LOW_WIZARD"},
-      {syntax:"/end_all_duel", ro:"Termină toate duelurile", en:"End all duels", level:"LOW_WIZARD"},
-      {syntax:"/show_arena_list", ro:"Afișează arenele active", en:"Show active arenas", level:"LOW_WIZARD"},
-      {syntax:"/elect", ro:"Declanșează alegerea unui monarh", en:"Trigger monarch election", level:"HIGH_WIZARD"},
-      {syntax:"/setmonarch <nume>", ro:"Setează un jucător ca monarh", en:"Set player as monarch", level:"LOW_WIZARD"},
-      {syntax:"/rmmonarch", ro:"Elimină monarhul curent", en:"Remove current monarch", level:"LOW_WIZARD"},
-    ]},
-    { id:"horse", icon:"🐴", ro:"Cal", en:"Horse", commands:[
-      {syntax:"/horse_state", ro:"Afișează starea calului", en:"Show horse state", level:"HIGH_WIZARD"},
-      {syntax:"/horse_level <nivel>", ro:"Setează nivelul calului", en:"Set horse level", level:"HIGH_WIZARD"},
-      {syntax:"/horse_ride", ro:"Urcă/coboară de pe cal", en:"Mount/unmount horse", level:"HIGH_WIZARD"},
-      {syntax:"/horse_summon", ro:"Invocă calul", en:"Summon horse", level:"HIGH_WIZARD"},
-      {syntax:"/horse_unsummon", ro:"Trimite calul înapoi", en:"Unsummon horse", level:"HIGH_WIZARD"},
-    ]},
-    { id:"server", icon:"🔧", ro:"Server & Sistem", en:"Server & System", commands:[
-      {syntax:"/reload [<fisier>]", ro:"Reîncarcă fișierele de configurare", en:"Reload config files", level:"IMPLEMENTOR"},
-      {syntax:"/shutdown [<sec>]", ro:"Oprește serverul (default 10 sec)", en:"Shut down server (default 10 sec)", level:"IMPLEMENTOR"},
-      {syntax:"/flush", ro:"Salvează forțat datele în DB", en:"Force save data to DB", level:"IMPLEMENTOR"},
-      {syntax:"/invisible", ro:"Activează/dezactivează invizibilitatea", en:"Toggle invisibility", level:"LOW_WIZARD"},
-      {syntax:"/polymorph <vnum>", ro:"Transformă-te în aspectul unui mob", en:"Transform into mob appearance", level:"LOW_WIZARD"},
-      {syntax:"/can_dead", ro:"Activează posibilitatea de a muri", en:"Enable ability to die", level:"LOW_WIZARD"},
-      {syntax:"/cannot_dead", ro:"Dezactivează posibilitatea de a muri", en:"Disable ability to die (god mode)", level:"LOW_WIZARD"},
-      {syntax:"/safebox <marime>", ro:"Setează mărimea safeboxului (0-3)", en:"Set safebox size (0-3)", level:"HIGH_WIZARD"},
-      {syntax:"/break_marriage", ro:"Rupe căsătoria unui jucător", en:"Break a player's marriage", level:"LOW_WIZARD"},
-      {syntax:"/eclipse", ro:"Activează/dezactivează eclipsa", en:"Toggle eclipse effect", level:"HIGH_WIZARD"},
-      {syntax:"/banner <mesaj>", ro:"Afișează un banner pe server", en:"Display server banner", level:"HIGH_WIZARD"},
-      {syntax:"/set <nume> <camp> <val>", ro:"Setează o valoare pentru un jucător", en:"Set a value for a player", level:"IMPLEMENTOR"},
-    ]},
-  ]
-};
+const data = { categories: [
+  { id:"teleport", icon:"📡", ro:"Teleportare & Navigare", en:"Teleport & Navigation", commands:[
+    {syntax:"/warp <nume>", ro:"Teleporteaza-te la un jucator", en:"Teleport to a player", level:"LOW_WIZARD"},
+    {syntax:"/warp <x> <y>", ro:"Teleporteaza-te la coordonate", en:"Teleport to coordinates", level:"LOW_WIZARD"},
+    {syntax:"/goto <x> <y>", ro:"Mergi la coordonate pe harta curenta", en:"Go to coordinates on current map", level:"LOW_WIZARD"},
+    {syntax:"/goto <locatie>", ro:"Mergi la o locatie denumita", en:"Go to a named location", level:"LOW_WIZARD"},
+    {syntax:"/transfer <nume>", ro:"Aduce un jucator la tine", en:"Bring a player to you", level:"LOW_WIZARD"},
+    {syntax:"/transfer_force <nume>", ro:"Aduce un jucator la tine (fortat)", en:"Force bring a player to you", level:"LOW_WIZARD"},
+    {syntax:"/rewarp", ro:"Reteleporteaza-te la ultima pozitie", en:"Re-teleport to last position", level:"HIGH_WIZARD"},
+  ]},
+  { id:"players", icon:"👤", ro:"Jucatori", en:"Players", commands:[
+    {syntax:"/dc <nume>", ro:"Deconecteaza un jucator", en:"Disconnect a player", level:"LOW_WIZARD"},
+    {syntax:"/kill <nume>", ro:"Omoara un jucator", en:"Kill a player", level:"HIGH_WIZARD"},
+    {syntax:"/kill_all", ro:"Omoara toti jucatorii din jur", en:"Kill all nearby players", level:"HIGH_WIZARD"},
+    {syntax:"/advance <nume> <nivel>", ro:"Seteaza nivelul altui jucator", en:"Set another player's level", level:"GOD"},
+    {syntax:"/level <nivel>", ro:"Seteaza nivelul tau (reseteaza skill-urile)", en:"Set your level (resets skills)", level:"LOW_WIZARD"},
+    {syntax:"/state [<nume>]", ro:"Afiseaza starea unui jucator", en:"Show player state", level:"LOW_WIZARD"},
+    {syntax:"/view_equip <nume>", ro:"Afiseaza echipamentul unui jucator", en:"Show a player's equipment", level:"HIGH_WIZARD"},
+    {syntax:"/user", ro:"Listeaza toti jucatorii conectati", en:"List all connected players", level:"HIGH_WIZARD"},
+    {syntax:"/who", ro:"Numar total jucatori pe imperii", en:"Total player count by empire", level:"IMPLEMENTOR"},
+    {syntax:"/online", ro:"Numar jucatori conectati", en:"Connected player count", level:"LOW_WIZARD"},
+    {syntax:"/reset", ro:"Reface HP si SP ale tale la maxim", en:"Restore your HP and SP to max", level:"HIGH_WIZARD"},
+    {syntax:"/greset <nume>", ro:"Reface HP si SP ale unui jucator", en:"Restore a player's HP and SP", level:"HIGH_WIZARD"},
+    {syntax:"/stat_reset", ro:"Reseteaza punctele de stat", en:"Reset stat points", level:"LOW_WIZARD"},
+    {syntax:"/block_chat <nume> <sec>", ro:"Blocheaza chat-ul unui jucator", en:"Block a player's chat", level:"HIGH_WIZARD"},
+    {syntax:"/block_chat_list", ro:"Lista jucatorilor cu chat blocat", en:"List of blocked chat players", level:"LOW_WIZARD"},
+    {syntax:"/forgetme", ro:"Elimina GM-ul din memoria monstrilor", en:"Remove GM from monster memory", level:"LOW_WIZARD"},
+  ]},
+  { id:"items", icon:"🎒", ro:"Iteme", en:"Items", commands:[
+    {syntax:"/item <vnum> [<cant>]", ro:"Spawneaza un item pe tine", en:"Spawn an item on yourself", level:"GOD"},
+    {syntax:"/ipurge", ro:"Sterge toate itemele din inventar", en:"Delete all items from inventory", level:"HIGH_WIZARD"},
+    {syntax:"/drop_item <slot>", ro:"Arunca itemul dintr-un slot", en:"Drop item from slot", level:"HIGH_WIZARD"},
+    {syntax:"/item_full_set", ro:"Da-ti un set complet de iteme", en:"Give yourself a full item set", level:"LOW_WIZARD"},
+    {syntax:"/attr_full_set", ro:"Seteaza atributele itemelor la maxim", en:"Set item attributes to max", level:"LOW_WIZARD"},
+    {syntax:"/full_set", ro:"Echipeaza-te cu un set complet", en:"Equip a full set", level:"LOW_WIZARD"},
+    {syntax:"/change_attr <slot>", ro:"Schimba atributele unui item", en:"Change item attributes", level:"IMPLEMENTOR"},
+    {syntax:"/add_attr <slot>", ro:"Adauga un atribut unui item", en:"Add attribute to item", level:"IMPLEMENTOR"},
+    {syntax:"/add_socket <slot>", ro:"Adauga un socket unui item", en:"Add socket to item", level:"IMPLEMENTOR"},
+    {syntax:"/set_socket <slot> <idx> <val>", ro:"Seteaza valoarea unui socket", en:"Set socket value", level:"LOW_WIZARD"},
+    {syntax:"/get_socket <slot>", ro:"Afiseaza socketurile unui item", en:"Show item sockets", level:"LOW_WIZARD"},
+    {syntax:"/use_item <slot>", ro:"Foloseste un item din inventar", en:"Use item from inventory", level:"LOW_WIZARD"},
+  ]},
+  { id:"mobs", icon:"👾", ro:"Mobi", en:"Mobs", commands:[
+    {syntax:"/mob <vnum> [<cant>]", ro:"Spawneaza un mob la tine", en:"Spawn a mob at your position", level:"HIGH_WIZARD"},
+    {syntax:"/mob_ld <vnum> <x> <y>", ro:"Spawneaza un mob la coordonate", en:"Spawn mob at coordinates", level:"HIGH_WIZARD"},
+    {syntax:"/ma <vnum>", ro:"Spawneaza un mob agresiv", en:"Spawn aggressive mob", level:"HIGH_WIZARD"},
+    {syntax:"/mc <vnum>", ro:"Spawneaza un mob las", en:"Spawn cowardly mob", level:"HIGH_WIZARD"},
+    {syntax:"/mm <vnum>", ro:"Spawneaza un mob pe toata harta", en:"Spawn mob across entire map", level:"HIGH_WIZARD"},
+    {syntax:"/purge [all]", ro:"Sterge mobii din jur", en:"Remove nearby mobs", level:"WIZARD"},
+    {syntax:"/aggregate", ro:"Atrage toti mobii din zona", en:"Attract all nearby mobs", level:"LOW_WIZARD"},
+    {syntax:"/pull_monster", ro:"Trage un mob specific la tine", en:"Pull a specific mob to you", level:"LOW_WIZARD"},
+    {syntax:"/get_mob_count", ro:"Numarul de mobi din zona", en:"Mob count in area", level:"LOW_WIZARD"},
+    {syntax:"/respawn", ro:"Re-spawneaza mobi in zona", en:"Re-spawn mobs in area", level:"WIZARD"},
+  ]},
+  { id:"skills", icon:"⚡", ro:"Skill-uri", en:"Skills", commands:[
+    {syntax:"/setskill <vnum> <nivel>", ro:"Seteaza nivelul unui skill al tau", en:"Set your skill level", level:"LOW_WIZARD"},
+    {syntax:"/setskillother <nume> <vnum> <niv>", ro:"Seteaza skill-ul altui jucator", en:"Set another player's skill", level:"HIGH_WIZARD"},
+    {syntax:"/all_skill_master", ro:"Toate skill-urile la master", en:"All skills to master", level:"LOW_WIZARD"},
+    {syntax:"/reset_subskill", ro:"Reseteaza sub-skill-urile", en:"Reset sub-skills", level:"HIGH_WIZARD"},
+    {syntax:"/cooltime", ro:"Activeaza/dezactiveaza cooldown", en:"Toggle skill cooldowns", level:"HIGH_WIZARD"},
+    {syntax:"/setjob <grup>", ro:"Schimba grupul de skill-uri", en:"Change skill group", level:"IMPLEMENTOR"},
+    {syntax:"/setskillpoint <val>", ro:"Seteaza punctele de skill", en:"Set skill points", level:"IMPLEMENTOR"},
+  ]},
+  { id:"affects", icon:"✨", ro:"Affect-uri", en:"Affects", commands:[
+    {syntax:"/affect_add <type> <apply> <val> <flag> <dur> <ovr>", ro:"Adauga un buff/debuff", en:"Add a buff/debuff", level:"LOW_WIZARD"},
+    {syntax:"/affect_remove <tip> <punct>", ro:"Elimina un affect specific", en:"Remove a specific affect", level:"LOW_WIZARD"},
+    {syntax:"/stun <nume>", ro:"Aplica stun 30 secunde", en:"Apply stun for 30 seconds", level:"LOW_WIZARD"},
+    {syntax:"/slow <nume>", ro:"Aplica slow (-30 viteza, 30 sec)", en:"Apply slow (-30 speed, 30 sec)", level:"LOW_WIZARD"},
+    {syntax:"/poison <nume>", ro:"Aplica efect de otrava", en:"Apply poison effect", level:"IMPLEMENTOR"},
+    {syntax:"/bleeding <nume>", ro:"Aplica efect de bleeding", en:"Apply bleeding effect", level:"IMPLEMENTOR"},
+    {syntax:"/fire <nume>", ro:"Aplica efect de foc", en:"Apply fire effect", level:"IMPLEMENTOR"},
+    {syntax:"/weaken <nume>", ro:"Slabeste un jucator", en:"Weaken a player", level:"GOD"},
+  ]},
+  { id:"notices", icon:"📢", ro:"Anunturi", en:"Notices", commands:[
+    {syntax:"/notice <mesaj>", ro:"Anunt pe tot serverul", en:"Server-wide notice", level:"HIGH_WIZARD"},
+    {syntax:"/notice_map <mesaj>", ro:"Anunt pe harta curenta", en:"Notice on current map", level:"LOW_WIZARD"},
+    {syntax:"/big_notice <mesaj>", ro:"Anunt mare pe tot serverul", en:"Big notice server-wide", level:"HIGH_WIZARD"},
+    {syntax:"/whisper_notice <mesaj>", ro:"Anunt prin whisper la toti", en:"Whisper notice to all", level:"GOD"},
+  ]},
+  { id:"quest", icon:"📜", ro:"Quest & Flags", en:"Quest & Flags", commands:[
+    {syntax:"/getqf [<nume>]", ro:"Afiseaza quest flag-urile unui jucator", en:"Show player quest flags", level:"LOW_WIZARD"},
+    {syntax:"/setqf <flag> <val> [<nume>]", ro:"Seteaza un quest flag", en:"Set a quest flag", level:"LOW_WIZARD"},
+    {syntax:"/delqf <flag> [<nume>]", ro:"Sterge un quest flag", en:"Delete a quest flag", level:"LOW_WIZARD"},
+    {syntax:"/clear_quest <quest>", ro:"Reseteaza un quest", en:"Reset a quest", level:"HIGH_WIZARD"},
+    {syntax:"/eventflag <flag> <val>", ro:"Seteaza event flag global", en:"Set global event flag", level:"HIGH_WIZARD"},
+    {syntax:"/geteventflag <flag>", ro:"Afiseaza valoarea unui event flag", en:"Show event flag value", level:"LOW_WIZARD"},
+  ]},
+  { id:"guild", icon:"🏰", ro:"Gilda & Imperiu", en:"Guild & Empire", commands:[
+    {syntax:"/makeguild <nume>", ro:"Creeaza o gilda", en:"Create a guild", level:"HIGH_WIZARD"},
+    {syntax:"/deleteguild", ro:"Dizolva gilda ta", en:"Disband your guild", level:"HIGH_WIZARD"},
+    {syntax:"/guild_advance <id> <nivel>", ro:"Seteaza nivelul unei gilde", en:"Set guild level", level:"IMPLEMENTOR"},
+    {syntax:"/gwlist", ro:"Listeaza razboaiele de gilda active", en:"List active guild wars", level:"LOW_WIZARD"},
+    {syntax:"/gwstop <id1> <id2>", ro:"Opreste un razboi de gilda", en:"Stop a guild war", level:"LOW_WIZARD"},
+    {syntax:"/gwcancel <id1> <id2>", ro:"Anuleaza un razboi de gilda", en:"Cancel a guild war", level:"LOW_WIZARD"},
+    {syntax:"/priv_guild <id> <tip> <val> <dur>", ro:"Bonus pentru o gilda", en:"Set guild bonus", level:"HIGH_WIZARD"},
+    {syntax:"/priv_empire <imp> <tip> <val> <dur>", ro:"Bonus pentru un imperiu (1=Shinsoo 2=Chunjo 3=Jinno)", en:"Set empire bonus (1=Shinsoo 2=Chunjo 3=Jinno)", level:"HIGH_WIZARD"},
+  ]},
+  { id:"duel", icon:"⚔️", ro:"Duel & Monarh", en:"Duel & Monarch", commands:[
+    {syntax:"/duel <j1> <j2> <seturi> <min>", ro:"Initiaza un duel", en:"Start a duel", level:"LOW_WIZARD"},
+    {syntax:"/end_duel <j1> <j2>", ro:"Termina un duel", en:"End a duel", level:"LOW_WIZARD"},
+    {syntax:"/end_all_duel", ro:"Termina toate duelurile", en:"End all duels", level:"LOW_WIZARD"},
+    {syntax:"/show_arena_list", ro:"Afiseaza arenele active", en:"Show active arenas", level:"LOW_WIZARD"},
+    {syntax:"/elect", ro:"Declanseaza alegerea unui monarh", en:"Trigger monarch election", level:"HIGH_WIZARD"},
+    {syntax:"/setmonarch <nume>", ro:"Seteaza un jucator ca monarh", en:"Set player as monarch", level:"LOW_WIZARD"},
+    {syntax:"/rmmonarch", ro:"Elimina monarhul curent", en:"Remove current monarch", level:"LOW_WIZARD"},
+  ]},
+  { id:"horse", icon:"🐴", ro:"Cal", en:"Horse", commands:[
+    {syntax:"/horse_state", ro:"Afiseaza starea calului", en:"Show horse state", level:"HIGH_WIZARD"},
+    {syntax:"/horse_level <nivel>", ro:"Seteaza nivelul calului", en:"Set horse level", level:"HIGH_WIZARD"},
+    {syntax:"/horse_ride", ro:"Urca/coboara de pe cal", en:"Mount/unmount horse", level:"HIGH_WIZARD"},
+    {syntax:"/horse_summon", ro:"Invoca calul", en:"Summon horse", level:"HIGH_WIZARD"},
+    {syntax:"/horse_unsummon", ro:"Trimite calul inapoi", en:"Unsummon horse", level:"HIGH_WIZARD"},
+  ]},
+  { id:"server", icon:"🔧", ro:"Server & Sistem", en:"Server & System", commands:[
+    {syntax:"/reload [<fisier>]", ro:"Reincarcat fisierele de configurare", en:"Reload config files", level:"IMPLEMENTOR"},
+    {syntax:"/shutdown [<sec>]", ro:"Opreste serverul (default 10 sec)", en:"Shut down server (default 10 sec)", level:"IMPLEMENTOR"},
+    {syntax:"/flush", ro:"Salveaza fortat datele in DB", en:"Force save data to DB", level:"IMPLEMENTOR"},
+    {syntax:"/invisible", ro:"Activeaza/dezactiveaza invizibilitatea", en:"Toggle invisibility", level:"LOW_WIZARD"},
+    {syntax:"/polymorph <vnum>", ro:"Transforma-te in aspectul unui mob", en:"Transform into mob appearance", level:"LOW_WIZARD"},
+    {syntax:"/can_dead", ro:"Activeaza posibilitatea de a muri", en:"Enable ability to die", level:"LOW_WIZARD"},
+    {syntax:"/cannot_dead", ro:"Dezactiveaza posibilitatea de a muri", en:"Disable ability to die", level:"LOW_WIZARD"},
+    {syntax:"/safebox <marime>", ro:"Seteaza marimea safeboxului (0-3)", en:"Set safebox size (0-3)", level:"HIGH_WIZARD"},
+    {syntax:"/break_marriage", ro:"Rupe casatoria unui jucator", en:"Break a player's marriage", level:"LOW_WIZARD"},
+    {syntax:"/eclipse", ro:"Activeaza/dezactiveaza eclipsa", en:"Toggle eclipse effect", level:"HIGH_WIZARD"},
+    {syntax:"/banner <mesaj>", ro:"Afiseaza un banner pe server", en:"Display server banner", level:"HIGH_WIZARD"},
+    {syntax:"/set <nume> <camp> <val>", ro:"Seteaza o valoare pentru un jucator", en:"Set a value for a player", level:"IMPLEMENTOR"},
+  ]},
+]};
 
-let currentLang = 'ro';
+let currentLang='ro';
 
-function setLang(lang) {
-  currentLang = lang;
-  document.getElementById('btn-ro').classList.toggle('active', lang==='ro');
-  document.getElementById('btn-en').classList.toggle('active', lang==='en');
-  document.getElementById('search').placeholder = LANG[lang].search;
-  const legs = LANG[lang].leg;
-  for (let i=1;i<=5;i++) document.getElementById('leg'+i).textContent = legs[i-1];
+function setLang(lang){
+  currentLang=lang;
+  document.getElementById('btn-ro').classList.toggle('active',lang==='ro');
+  document.getElementById('btn-en').classList.toggle('active',lang==='en');
+  document.getElementById('search').placeholder=LANG[lang].search;
+  LANG[lang].leg.forEach((t,i)=>document.getElementById('leg'+(i+1)).textContent=t);
   renderSections(document.getElementById('search').value);
 }
 
-function filterCommands() { renderSections(document.getElementById('search').value); }
+function filterCommands(){renderSections(document.getElementById('search').value);}
 
-function renderSections(filter='') {
-  const sections = document.getElementById('sections');
-  const noResults = document.getElementById('no-results');
-  const sidebar = document.getElementById('sidebar');
-  const q = filter.toLowerCase();
-  let total = 0;
+function renderSections(filter=''){
+  const sections=document.getElementById('sections');
+  const noResults=document.getElementById('no-results');
+  const sidebar=document.getElementById('sidebar');
+  const q=filter.toLowerCase();
+  let total=0;
+  sections.innerHTML='';
+  sidebar.innerHTML=`<div class="sidebar-label">${LANG[currentLang].cats}</div>`;
 
-  sections.innerHTML = '';
-  sidebar.innerHTML = `<div class="sidebar-label">${LANG[currentLang].categories}</div>`;
+  data.categories.forEach(cat=>{
+    const filtered=q?cat.commands.filter(c=>c.syntax.toLowerCase().includes(q)||c[currentLang].toLowerCase().includes(q)):cat.commands;
+    if(!filtered.length)return;
+    total+=filtered.length;
 
-  data.categories.forEach(cat => {
-    const filtered = q
-      ? cat.commands.filter(c => c.syntax.toLowerCase().includes(q) || c[currentLang].toLowerCase().includes(q))
-      : cat.commands;
-    if (!filtered.length) return;
-    total += filtered.length;
-
-    const link = document.createElement('div');
-    link.className = 'sidebar-link';
-    link.innerHTML = `${cat.icon} ${cat[currentLang]} <span class="sidebar-count">${filtered.length}</span>`;
-    link.onclick = () => document.getElementById('sec-'+cat.id)?.scrollIntoView({behavior:'smooth',block:'start'});
+    const link=document.createElement('div');
+    link.className='sidebar-link';
+    link.innerHTML=`${cat.icon} ${cat[currentLang]} <span class="sidebar-count">${filtered.length}</span>`;
+    link.onclick=()=>document.getElementById('sec-'+cat.id)?.scrollIntoView({behavior:'smooth',block:'start'});
     sidebar.appendChild(link);
 
-    const sec = document.createElement('div');
-    sec.className = 'section';
-    sec.id = 'sec-'+cat.id;
-    sec.innerHTML = `
+    const sec=document.createElement('div');
+    sec.className='section'; sec.id='sec-'+cat.id;
+    sec.innerHTML=`
       <div class="section-header">
         <span class="section-icon">${cat.icon}</span>
         <span class="section-title">${cat[currentLang]}</span>
@@ -368,21 +294,20 @@ function renderSections(filter='') {
       </div>
       <div class="cmd-table-wrap">
         <table class="cmd-table">
-          ${filtered.map(cmd => `
+          ${filtered.map(cmd=>`
             <tr class="cmd-row">
               <td class="cmd-syntax">${cmd.syntax}</td>
               <td class="cmd-desc">${cmd[currentLang]}</td>
-              <td class="cmd-level"><span class="badge badge-${cmd.level}">${cmd.level.replace('_',' ')}</span></td>
-            </tr>
-          `).join('')}
+              <td class="cmd-level"><span class="badge badge-${cmd.level}">${cmd.level.replace(/_/g,' ')}</span></td>
+            </tr>`).join('')}
         </table>
       </div>`;
     sections.appendChild(sec);
   });
 
-  document.getElementById('shown').textContent = total;
-  noResults.style.display = total ? 'none' : 'block';
-  noResults.textContent = LANG[currentLang].noResults;
+  document.getElementById('shown').textContent=total;
+  noResults.style.display=total?'none':'block';
+  noResults.textContent=LANG[currentLang].noResults;
 }
 
 renderSections();
