@@ -84,8 +84,7 @@ mark { background:rgba(0,200,255,0.25); color:var(--accent); border-radius:2px; 
 <div class="toast" id="toast"></div>
 <script src="data.js"></script>
 <script>
-// Filter out Yang (1) and version items (2)
-const DATA = ITEMS.filter(i => i.vnum !== 1 && i.vnum !== 2);
+const DATA = ITEMS;
 const PAGE_SIZE=120; let filtered=[],page=0,lang='ro',searchTimer=null,q='';
 const grid=document.getElementById('grid');
 document.getElementById('total').textContent=DATA.length;
