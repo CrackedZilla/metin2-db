@@ -48,7 +48,7 @@ aside::-webkit-scrollbar-thumb { background:var(--border); }
 .sidebar-link { display:flex; align-items:center; gap:7px; padding:7px 14px; color:var(--text-soft); font-size:12px; font-weight:500; cursor:pointer; transition:all 0.12s; border-left:2px solid transparent; }
 .sidebar-link:hover { color:var(--text); background:rgba(255,255,255,0.03); }
 .sidebar-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-dim); }
-.sidebar-count { margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); }
+.sidebar-count { margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text); }
 
 main { padding:24px 28px 60px; }
 
@@ -59,7 +59,7 @@ main { padding:24px 28px 60px; }
 .section-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--border); }
 .section-icon { font-size:18px; }
 .section-title { font-size:15px; font-weight:600; color:var(--text); }
-.section-count { margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); background:var(--surface2); padding:2px 7px; border-radius:4px; border:1px solid var(--border); }
+.section-count { margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent); background:var(--surface2); padding:2px 7px; border-radius:4px; border:1px solid var(--border); }
 
 .cmd-table-wrap { background:var(--surface); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
 .cmd-table { width:100%; border-collapse:collapse; }
@@ -88,7 +88,7 @@ main { padding:24px 28px 60px; }
   <div class="nav-logo">⚔ Metin2<span>DB</span></div>
   <div class="nav-sep"></div>
   <a href="index.html" class="nav-link active" id="nav-cmd">GM Comenzi</a>
-  <a href="items.html" class="nav-link" id="nav-items">🎒 Iteme</a>
+  <a href="items.html" class="nav-link" id="nav-items">💎 Iteme</a>
   <a href="mobs.html" class="nav-link" id="nav-mobs">👾 Mobi</a>
   <div class="nav-spacer"></div>
   <div class="lang-toggle">
@@ -125,7 +125,7 @@ const LANG = {
 };
 
 const data = { categories: [
-  { id:"teleport", icon:"📡", ro:"Teleportare & Navigare", en:"Teleport & Navigation", commands:[
+  { id:"teleport", icon:"🌀", ro:"Teleportare & Navigare", en:"Teleport & Navigation", commands:[
     {syntax:"/warp <nume>", ro:"Teleporteaza-te la un jucator", en:"Teleport to a player", level:"LOW_WIZARD"},
     {syntax:"/warp <x> <y>", ro:"Teleporteaza-te la coordonate", en:"Teleport to coordinates", level:"LOW_WIZARD"},
     {syntax:"/goto <x> <y>", ro:"Mergi la coordonate pe harta curenta", en:"Go to coordinates on current map", level:"LOW_WIZARD"},
@@ -152,7 +152,7 @@ const data = { categories: [
     {syntax:"/block_chat_list", ro:"Lista jucatorilor cu chat blocat", en:"List of blocked chat players", level:"LOW_WIZARD"},
     {syntax:"/forgetme", ro:"Elimina GM-ul din memoria monstrilor", en:"Remove GM from monster memory", level:"LOW_WIZARD"},
   ]},
-  { id:"items", icon:"🎒", ro:"Iteme", en:"Items", commands:[
+  { id:"items", icon:"💎", ro:"Iteme", en:"Items", commands:[
     {syntax:"/item <vnum> [<cant>]", ro:"Spawneaza un item pe tine", en:"Spawn an item on yourself", level:"GOD"},
     {syntax:"/ipurge", ro:"Sterge toate itemele din inventar", en:"Delete all items from inventory", level:"HIGH_WIZARD"},
     {syntax:"/drop_item <slot>", ro:"Arunca itemul dintr-un slot", en:"Drop item from slot", level:"HIGH_WIZARD"},
@@ -197,7 +197,7 @@ const data = { categories: [
     {syntax:"/fire <nume>", ro:"Aplica efect de foc", en:"Apply fire effect", level:"IMPLEMENTOR"},
     {syntax:"/weaken <nume>", ro:"Slabeste un jucator", en:"Weaken a player", level:"GOD"},
   ]},
-  { id:"notices", icon:"📢", ro:"Anunturi", en:"Notices", commands:[
+  { id:"notices", icon:"📣", ro:"Anunturi", en:"Notices", commands:[
     {syntax:"/notice <mesaj>", ro:"Anunt pe tot serverul", en:"Server-wide notice", level:"HIGH_WIZARD"},
     {syntax:"/notice_map <mesaj>", ro:"Anunt pe harta curenta", en:"Notice on current map", level:"LOW_WIZARD"},
     {syntax:"/big_notice <mesaj>", ro:"Anunt mare pe tot serverul", en:"Big notice server-wide", level:"HIGH_WIZARD"},
@@ -237,7 +237,7 @@ const data = { categories: [
     {syntax:"/horse_summon", ro:"Invoca calul", en:"Summon horse", level:"HIGH_WIZARD"},
     {syntax:"/horse_unsummon", ro:"Trimite calul inapoi", en:"Unsummon horse", level:"HIGH_WIZARD"},
   ]},
-  { id:"server", icon:"🔧", ro:"Server & Sistem", en:"Server & System", commands:[
+  { id:"server", icon:"🛠️", ro:"Server & Sistem", en:"Server & System", commands:[
     {syntax:"/reload [<fisier>]", ro:"Reincarcat fisierele de configurare", en:"Reload config files", level:"IMPLEMENTOR"},
     {syntax:"/shutdown [<sec>]", ro:"Opreste serverul (default 10 sec)", en:"Shut down server (default 10 sec)", level:"IMPLEMENTOR"},
     {syntax:"/flush", ro:"Salveaza fortat datele in DB", en:"Force save data to DB", level:"IMPLEMENTOR"},
@@ -258,7 +258,7 @@ let currentLang='ro';
 function setLang(lang){
   currentLang=lang;
   document.getElementById('nav-cmd').textContent=lang==='ro'?'GM Comenzi':'GM Commands';
-  document.getElementById('nav-items').textContent=lang==='ro'?'🎒 Iteme':'🎒 Items';
+  document.getElementById('nav-items').textContent=lang==='ro'?'💎 Iteme':'🎒 Items';
   document.getElementById('nav-mobs').textContent=lang==='ro'?'👾 Mobi':'👾 Mobs';
   document.getElementById('btn-ro').classList.toggle('active',lang==='ro');
   document.getElementById('btn-en').classList.toggle('active',lang==='en');

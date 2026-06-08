@@ -24,7 +24,7 @@ nav { position:sticky; top:0; z-index:100; background:rgba(8,10,15,0.9); backdro
 .nav-link.active { color:var(--accent); background:var(--accent-dim); border-color:rgba(0,200,255,0.25); }
 .nav-spacer { flex:1; }
 .lang-toggle { display:flex; gap:2px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:2px; }
-.lang-btn { padding:4px 12px; border:none; border-radius:4px; background:transparent; color:var(--text-soft); cursor:pointer; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.5px; transition:all 0.2s; }
+.lang-btn { padding:4px 12px; border:none; border-radius:4px; background:transparent; color:var(--text); cursor:pointer; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.5px; transition:all 0.2s; }
 .lang-btn.active { background:var(--accent); color:#000; }
 .search-section { padding:20px 24px 16px; border-bottom:1px solid var(--border); background:var(--surface); display:flex; align-items:center; gap:12px; }
 .search-wrap { position:relative; flex:1; max-width:440px; }
@@ -60,7 +60,7 @@ mark { background:rgba(0,200,255,0.25); color:var(--accent); border-radius:2px; 
   <div class="nav-logo">⚔ Metin2<span>DB</span></div>
   <div class="nav-sep"></div>
   <a href="index.html" class="nav-link" id="nav-cmd">GM Comenzi</a>
-  <a href="items.html" class="nav-link" id="nav-items">🎒 Iteme</a>
+  <a href="items.html" class="nav-link" id="nav-items">💎 Iteme</a>
   <a href="mobs.html" class="nav-link active" id="nav-mobs">👾 Mobi</a>
   <div class="nav-spacer"></div>
   <div class="lang-toggle">
@@ -91,7 +91,7 @@ document.getElementById('total').textContent=MOBS.length;
 function esc(s){return s.replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));}
 function highlight(name){ if(!q) return esc(name); const i=name.toLowerCase().indexOf(q); if(i<0) return esc(name); return esc(name.slice(0,i))+'<mark>'+esc(name.slice(i,i+q.length))+'</mark>'+esc(name.slice(i+q.length)); }
 
-function setLang(l){lang=l;document.getElementById('nav-cmd').textContent=l==='ro'?'GM Comenzi':'GM Commands';document.getElementById('nav-items').textContent=l==='ro'?'🎒 Iteme':'🎒 Items';document.getElementById('nav-mobs').textContent=l==='ro'?'👾 Mobi':'👾 Mobs';document.getElementById('btn-ro').classList.toggle('active',l==='ro');document.getElementById('btn-en').classList.toggle('active',l==='en');document.getElementById('search').placeholder=l==='ro'?'Caută după nume sau VNUM...':'Search by name or VNUM...';document.getElementById('no-results').textContent=l==='ro'?'Niciun mob găsit.':'No mobs found.';doFilter();}
+function setLang(l){lang=l;document.getElementById('nav-cmd').textContent=l==='ro'?'GM Comenzi':'GM Commands';document.getElementById('nav-items').textContent=l==='ro'?'💎 Iteme':'🎒 Items';document.getElementById('nav-mobs').textContent=l==='ro'?'👾 Mobi':'👾 Mobs';document.getElementById('btn-ro').classList.toggle('active',l==='ro');document.getElementById('btn-en').classList.toggle('active',l==='en');document.getElementById('search').placeholder=l==='ro'?'Caută după nume sau VNUM...':'Search by name or VNUM...';document.getElementById('no-results').textContent=l==='ro'?'Niciun mob găsit.':'No mobs found.';doFilter();}
 function onSearch(){clearTimeout(searchTimer);searchTimer=setTimeout(doFilter,120);}
 function doFilter(){q=document.getElementById('search').value.toLowerCase().trim();const k=lang==='ro'?'name_ro':'name_en';filtered=q?MOBS.filter(m=>m[k].toLowerCase().includes(q)||String(m.vnum).includes(q)):MOBS;page=0;render();}
 function render(){
