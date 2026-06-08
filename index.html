@@ -286,7 +286,16 @@ function renderSections(filter=''){
     const link=document.createElement('div');
     link.className='sidebar-link';
     link.innerHTML=`${cat.icon} ${cat[currentLang]} <span class="sidebar-count">${filtered.length}</span>`;
-    link.onclick=()=>{document.querySelectorAll('.sidebar-link').forEach(s=>s.classList.remove('active'));link.classList.add('active');document.getElementById('sec-'+cat.id)?.scrollIntoView({behavior:'smooth',block:'start'});};
+    link.dataset.section=cat.id;
+    link.onclick=()=>{
+      const target=document.getElementById('sec-'+cat.id);
+      if(target){
+        window.scrollTo({
+          top: target.offsetTop-70,
+          behavior:'smooth'
+        });
+      }
+    };
     sidebar.appendChild(link);
 
     const sec=document.createElement('div');
@@ -316,6 +325,30 @@ function renderSections(filter=''){
 }
 
 renderSections();
+
+function initScrollSpy(){
+  const sections=document.querySelectorAll('.section');
+
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+
+      const id=entry.target.id.replace('sec-','');
+
+      document.querySelectorAll('.sidebar-link').forEach(link=>{
+        link.classList.toggle('active', link.dataset.section===id);
+      });
+    });
+  },{
+    rootMargin:'-120px 0px -60% 0px',
+    threshold:0.1
+  });
+
+  sections.forEach(sec=>observer.observe(sec));
+}
+
+
+initScrollSpy();
 </script>
 <div class="toast" id="toast"></div>
 <script>
