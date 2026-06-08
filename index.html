@@ -55,7 +55,7 @@ main { padding:24px 28px 60px; }
 .legend { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; padding:12px 16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; }
 .legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-soft); }
 
-.section { margin-bottom:36px; }
+.section { margin-bottom:36px; scroll-margin-top:80px; }
 .section-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--border); }
 .section-icon { font-size:18px; }
 .section-title { font-size:15px; font-weight:600; color:var(--text); }
@@ -125,7 +125,7 @@ const LANG = {
 };
 
 const data = { categories: [
-  { id:"teleport", icon:"🌀", ro:"Teleportare & Navigare", en:"Teleport & Navigation", commands:[
+  { id:"teleport", icon:"🌀", ro:"Teleportare", en:"Teleportation", commands:[
     {syntax:"/warp <nume>", ro:"Teleporteaza-te la un jucator", en:"Teleport to a player", level:"LOW_WIZARD"},
     {syntax:"/warp <x> <y>", ro:"Teleporteaza-te la coordonate", en:"Teleport to coordinates", level:"LOW_WIZARD"},
     {syntax:"/goto <x> <y>", ro:"Mergi la coordonate pe harta curenta", en:"Go to coordinates on current map", level:"LOW_WIZARD"},
@@ -152,7 +152,7 @@ const data = { categories: [
     {syntax:"/block_chat_list", ro:"Lista jucatorilor cu chat blocat", en:"List of blocked chat players", level:"LOW_WIZARD"},
     {syntax:"/forgetme", ro:"Elimina GM-ul din memoria monstrilor", en:"Remove GM from monster memory", level:"LOW_WIZARD"},
   ]},
-  { id:"items", icon:"💎", ro:"Iteme", en:"Items", commands:[
+  { id:"items", icon:"💎", ro:"Iteme & Echipament", en:"Items & Gear", commands:[
     {syntax:"/item <vnum> [<cant>]", ro:"Spawneaza un item pe tine", en:"Spawn an item on yourself", level:"GOD"},
     {syntax:"/ipurge", ro:"Sterge toate itemele din inventar", en:"Delete all items from inventory", level:"HIGH_WIZARD"},
     {syntax:"/drop_item <slot>", ro:"Arunca itemul dintr-un slot", en:"Drop item from slot", level:"HIGH_WIZARD"},
@@ -166,7 +166,7 @@ const data = { categories: [
     {syntax:"/get_socket <slot>", ro:"Afiseaza socketurile unui item", en:"Show item sockets", level:"LOW_WIZARD"},
     {syntax:"/use_item <slot>", ro:"Foloseste un item din inventar", en:"Use item from inventory", level:"LOW_WIZARD"},
   ]},
-  { id:"mobs", icon:"👾", ro:"Mobi", en:"Mobs", commands:[
+  { id:"mobs", icon:"👾", ro:"Monstri & Spawn", en:"Monsters & Spawn", commands:[
     {syntax:"/mob <vnum> [<cant>]", ro:"Spawneaza un mob la tine", en:"Spawn a mob at your position", level:"HIGH_WIZARD"},
     {syntax:"/mob_ld <vnum> <x> <y>", ro:"Spawneaza un mob la coordonate", en:"Spawn mob at coordinates", level:"HIGH_WIZARD"},
     {syntax:"/ma <vnum>", ro:"Spawneaza un mob agresiv", en:"Spawn aggressive mob", level:"HIGH_WIZARD"},
@@ -178,7 +178,7 @@ const data = { categories: [
     {syntax:"/get_mob_count", ro:"Numarul de mobi din zona", en:"Mob count in area", level:"LOW_WIZARD"},
     {syntax:"/respawn", ro:"Re-spawneaza mobi in zona", en:"Re-spawn mobs in area", level:"WIZARD"},
   ]},
-  { id:"skills", icon:"⚡", ro:"Skill-uri", en:"Skills", commands:[
+  { id:"skills", icon:"⚡", ro:"Abilitati", en:"Skills", commands:[
     {syntax:"/setskill <vnum> <nivel>", ro:"Seteaza nivelul unui skill al tau", en:"Set your skill level", level:"LOW_WIZARD"},
     {syntax:"/setskillother <nume> <vnum> <niv>", ro:"Seteaza skill-ul altui jucator", en:"Set another player's skill", level:"HIGH_WIZARD"},
     {syntax:"/all_skill_master", ro:"Toate skill-urile la master", en:"All skills to master", level:"LOW_WIZARD"},
@@ -187,7 +187,7 @@ const data = { categories: [
     {syntax:"/setjob <grup>", ro:"Schimba grupul de skill-uri", en:"Change skill group", level:"IMPLEMENTOR"},
     {syntax:"/setskillpoint <val>", ro:"Seteaza punctele de skill", en:"Set skill points", level:"IMPLEMENTOR"},
   ]},
-  { id:"affects", icon:"✨", ro:"Affect-uri", en:"Affects", commands:[
+  { id:"affects", icon:"✨", ro:"Efecte & Buff-uri", en:"Effects & Buffs", commands:[
     {syntax:"/affect_add <type> <apply> <val> <flag> <dur> <ovr>", ro:"Adauga un buff/debuff", en:"Add a buff/debuff", level:"LOW_WIZARD"},
     {syntax:"/affect_remove <tip> <punct>", ro:"Elimina un affect specific", en:"Remove a specific affect", level:"LOW_WIZARD"},
     {syntax:"/stun <nume>", ro:"Aplica stun 30 secunde", en:"Apply stun for 30 seconds", level:"LOW_WIZARD"},
@@ -197,13 +197,13 @@ const data = { categories: [
     {syntax:"/fire <nume>", ro:"Aplica efect de foc", en:"Apply fire effect", level:"IMPLEMENTOR"},
     {syntax:"/weaken <nume>", ro:"Slabeste un jucator", en:"Weaken a player", level:"GOD"},
   ]},
-  { id:"notices", icon:"📣", ro:"Anunturi", en:"Notices", commands:[
+  { id:"notices", icon:"📣", ro:"Anunturi", en:"Announcements", commands:[
     {syntax:"/notice <mesaj>", ro:"Anunt pe tot serverul", en:"Server-wide notice", level:"HIGH_WIZARD"},
     {syntax:"/notice_map <mesaj>", ro:"Anunt pe harta curenta", en:"Notice on current map", level:"LOW_WIZARD"},
     {syntax:"/big_notice <mesaj>", ro:"Anunt mare pe tot serverul", en:"Big notice server-wide", level:"HIGH_WIZARD"},
     {syntax:"/whisper_notice <mesaj>", ro:"Anunt prin whisper la toti", en:"Whisper notice to all", level:"GOD"},
   ]},
-  { id:"quest", icon:"📜", ro:"Quest & Flags", en:"Quest & Flags", commands:[
+  { id:"quest", icon:"📜", ro:"Quest-uri & Evenimente", en:"Quests & Events", commands:[
     {syntax:"/getqf [<nume>]", ro:"Afiseaza quest flag-urile unui jucator", en:"Show player quest flags", level:"LOW_WIZARD"},
     {syntax:"/setqf <flag> <val> [<nume>]", ro:"Seteaza un quest flag", en:"Set a quest flag", level:"LOW_WIZARD"},
     {syntax:"/delqf <flag> [<nume>]", ro:"Sterge un quest flag", en:"Delete a quest flag", level:"LOW_WIZARD"},
@@ -211,7 +211,7 @@ const data = { categories: [
     {syntax:"/eventflag <flag> <val>", ro:"Seteaza event flag global", en:"Set global event flag", level:"HIGH_WIZARD"},
     {syntax:"/geteventflag <flag>", ro:"Afiseaza valoarea unui event flag", en:"Show event flag value", level:"LOW_WIZARD"},
   ]},
-  { id:"guild", icon:"🏰", ro:"Gilda & Imperiu", en:"Guild & Empire", commands:[
+  { id:"guild", icon:"🏰", ro:"Bresle & Imperii", en:"Guilds & Empires", commands:[
     {syntax:"/makeguild <nume>", ro:"Creeaza o gilda", en:"Create a guild", level:"HIGH_WIZARD"},
     {syntax:"/deleteguild", ro:"Dizolva gilda ta", en:"Disband your guild", level:"HIGH_WIZARD"},
     {syntax:"/guild_advance <id> <nivel>", ro:"Seteaza nivelul unei gilde", en:"Set guild level", level:"IMPLEMENTOR"},
@@ -221,7 +221,7 @@ const data = { categories: [
     {syntax:"/priv_guild <id> <tip> <val> <dur>", ro:"Bonus pentru o gilda", en:"Set guild bonus", level:"HIGH_WIZARD"},
     {syntax:"/priv_empire <imp> <tip> <val> <dur>", ro:"Bonus pentru un imperiu (1=Shinsoo 2=Chunjo 3=Jinno)", en:"Set empire bonus (1=Shinsoo 2=Chunjo 3=Jinno)", level:"HIGH_WIZARD"},
   ]},
-  { id:"duel", icon:"⚔️", ro:"Duel & Monarh", en:"Duel & Monarch", commands:[
+  { id:"duel", icon:"⚔️", ro:"Dueluri & Monarhie", en:"Duels & Monarchy", commands:[
     {syntax:"/duel <j1> <j2> <seturi> <min>", ro:"Initiaza un duel", en:"Start a duel", level:"LOW_WIZARD"},
     {syntax:"/end_duel <j1> <j2>", ro:"Termina un duel", en:"End a duel", level:"LOW_WIZARD"},
     {syntax:"/end_all_duel", ro:"Termina toate duelurile", en:"End all duels", level:"LOW_WIZARD"},
@@ -230,14 +230,14 @@ const data = { categories: [
     {syntax:"/setmonarch <nume>", ro:"Seteaza un jucator ca monarh", en:"Set player as monarch", level:"LOW_WIZARD"},
     {syntax:"/rmmonarch", ro:"Elimina monarhul curent", en:"Remove current monarch", level:"LOW_WIZARD"},
   ]},
-  { id:"horse", icon:"🐴", ro:"Cal", en:"Horse", commands:[
+  { id:"horse", icon:"🐴", ro:"Cal & Antrenament", en:"Horse & Training", commands:[
     {syntax:"/horse_state", ro:"Afiseaza starea calului", en:"Show horse state", level:"HIGH_WIZARD"},
     {syntax:"/horse_level <nivel>", ro:"Seteaza nivelul calului", en:"Set horse level", level:"HIGH_WIZARD"},
     {syntax:"/horse_ride", ro:"Urca/coboara de pe cal", en:"Mount/unmount horse", level:"HIGH_WIZARD"},
     {syntax:"/horse_summon", ro:"Invoca calul", en:"Summon horse", level:"HIGH_WIZARD"},
     {syntax:"/horse_unsummon", ro:"Trimite calul inapoi", en:"Unsummon horse", level:"HIGH_WIZARD"},
   ]},
-  { id:"server", icon:"🛠️", ro:"Server & Sistem", en:"Server & System", commands:[
+  { id:"server", icon:"🛠️", ro:"Administrare Server", en:"Server Admin", commands:[
     {syntax:"/reload [<fisier>]", ro:"Reincarcat fisierele de configurare", en:"Reload config files", level:"IMPLEMENTOR"},
     {syntax:"/shutdown [<sec>]", ro:"Opreste serverul (default 10 sec)", en:"Shut down server (default 10 sec)", level:"IMPLEMENTOR"},
     {syntax:"/flush", ro:"Salveaza fortat datele in DB", en:"Force save data to DB", level:"IMPLEMENTOR"},
@@ -258,7 +258,7 @@ let currentLang='ro';
 function setLang(lang){
   currentLang=lang;
   document.getElementById('nav-cmd').textContent=lang==='ro'?'GM Comenzi':'GM Commands';
-  document.getElementById('nav-items').textContent=lang==='ro'?'💎 Iteme':'🎒 Items';
+  document.getElementById('nav-items').textContent=lang==='ro'?'💎 Iteme':'💎 Items';
   document.getElementById('nav-mobs').textContent=lang==='ro'?'👾 Mobi':'👾 Mobs';
   document.getElementById('btn-ro').classList.toggle('active',lang==='ro');
   document.getElementById('btn-en').classList.toggle('active',lang==='en');
@@ -286,7 +286,7 @@ function renderSections(filter=''){
     const link=document.createElement('div');
     link.className='sidebar-link';
     link.innerHTML=`${cat.icon} ${cat[currentLang]} <span class="sidebar-count">${filtered.length}</span>`;
-    link.onclick=()=>document.getElementById('sec-'+cat.id)?.scrollIntoView({behavior:'smooth',block:'start'});
+    link.onclick=()=>{document.querySelectorAll('.sidebar-link').forEach(s=>s.classList.remove('active'));link.classList.add('active');document.getElementById('sec-'+cat.id)?.scrollIntoView({behavior:'smooth',block:'start'});};
     sidebar.appendChild(link);
 
     const sec=document.createElement('div');
